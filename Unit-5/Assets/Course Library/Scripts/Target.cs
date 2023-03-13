@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
 {
     private Rigidbody targetRB;
     private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +19,19 @@ public class Target : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        gameManager.UpdateScore(5);
+        if(gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            gameManager.UpdateScore(5);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOVer();
+        }
     }
     // Update is called once per frame
     void Update()
